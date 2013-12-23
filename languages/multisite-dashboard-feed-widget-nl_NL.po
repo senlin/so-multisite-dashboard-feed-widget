@@ -1,0 +1,95 @@
+# Copyright (C) 2013 
+# This file is distributed under the same license as the  package.
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://github.com/so-wp/so-multisite-dashboard-feed-widget/issues\n"
+"POT-Creation-Date: 2013-11-04 10:45:41+08:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2013-11-04 10:58+0830\n"
+"Last-Translator: Piet Bos <piet@senlinonline.com>\n"
+"Language-Team: SO-WP\n"
+
+#: msdbfeed.php:76
+msgid "<div class=\"error\"><p>%1$s</p><p><i>%2$s</i> has been deactivated.</p></div>"
+msgstr "<div class=\"error\"><p>%1$s</p><p><i>%2$s</i> is gedeactiveerd.</p></div>"
+
+#: msdbfeed.php:123
+msgid "Recent Updates"
+msgstr "Recente Updates"
+
+#: msdbfeed.php:177
+msgid "SO Multisite Dashboard Feed Widget Settings"
+msgstr "SO Multisite Dashboard Feed Widget Instellingen"
+
+#: msdbfeed.php:179
+msgid "Below you can adjust the output of the SO Multisite Dashboard Feed Widget Settings. You can change the title of the widget and the amount of feed items to show."
+msgstr "Hieronder kan je de output van de SO Multisite Dashboard Feed Widget aanpassen. Je kan de titel van de widget veranderen en het aantal feed items."
+
+#: msdbfeed.php:195
+msgid "Widget Title"
+msgstr "Widget Titel"
+
+#: msdbfeed.php:199
+msgid "Change the title of the SO Multisite Dashboard Feed Widget into something of your liking"
+msgstr "Verander de title van de SO Multisite Dashboard Feed Widget naar iets dat je leuk vindt"
+
+#: msdbfeed.php:206
+msgid "How many Feed Items to show in the SO Multisite Dashboard Feed Widget"
+msgstr "Hoeveel feed items wil je laten zien in de SO Multisite Dashboard Feed Widget"
+
+#: msdbfeed.php:221
+msgid "How many feed items to show in the widget?"
+msgstr "Hoeveel feed items laten zien in de widget?"
+
+#: msdbfeed.php:235
+msgid "Save Settings"
+msgstr "Bewaar de instellingen"
+
+#. Translators: 1 is link to WP Repo
+#: msdbfeed.php:244
+msgid " If you have found this plugin at all useful, please give it a favourable rating in the <a href=\"%s\" title=\"Rate this plugin!\">WordPress Plugin Repository</a>."
+msgstr "Wanneer je deze plugin handig vindt, geef het dan een gunstige waardering in de <a href=\"%s\" title=\"Geef deze plugin een waardering!\">WordPress Plugin Repository</a>."
+
+#: msdbfeed.php:254
+msgid "About the Author"
+msgstr "Over de Auteur"
+
+#: msdbfeed.php:260
+msgid "Hi, my name is Piet Bos, I hope you like this plugin! Please check out any of my other plugins on <a href=\"%s\" title=\"SO WP Plugins\">SO WP Plugins</a>. You can find out more information about me via the following links:"
+msgstr "Hoi, mijn naam is Piet Bos, hopelijk vind je dit een handige plugin! Kijk ook eens naar mijn andere plugins via <a href=\"%s\" title=\"SO WP Plugins\">SO WP Plugins</a>. Je kan meer informatie over mij vinden via de onderstaande links:"
+
+#: msdbfeed.php:266
+msgid "Senlin Online"
+msgstr "Senlin Online"
+
+#: msdbfeed.php:267
+msgid "WP Tips"
+msgstr "WP Tips"
+
+#: msdbfeed.php:268
+msgid "Google+"
+msgstr "Google+"
+
+#: msdbfeed.php:269
+msgid "LinkedIn"
+msgstr "LinkedIn"
+
+#: msdbfeed.php:270
+msgid "Twitter: @piethfbos"
+msgstr "Twitter: @piethfbos"
+
+#: msdbfeed.php:271
+msgid "Github"
+msgstr "Github"
+
+#: msdbfeed.php:272
+msgid "WordPress.org Profile"
+msgstr "WordPress.org Profiel"
+
+#: msdbfeed.php:302
+msgid "Settings"
+msgstr "Instellingen"
+

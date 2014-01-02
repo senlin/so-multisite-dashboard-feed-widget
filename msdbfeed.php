@@ -45,10 +45,10 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  */
 
 //Only do this when on the Plugins page.
-if ( ! empty ( $GLOBALS['pagenow'] ) && 'plugins.php' === $GLOBALS['pagenow'] )
-	add_action( 'admin_notices', 'msdbfeed_check_admin_notices', 0 );
+if ( ! empty ( $GLOBALS['pagenow'] ) &&  network_admin_url( 'plugins.php' ) === $GLOBALS['pagenow'] )
+	add_action( 'admin_notices', 'so_msdbfeed_check_admin_notices', 0 );
 
-function msdbfeed_min_wp_version() {
+function so_msdbfeed_min_wp_version() {
 	global $wp_version;
 	$require_wp = '3.6';
 	$update_url = network_admin_url( 'update-core.php' );
@@ -62,9 +62,9 @@ function msdbfeed_min_wp_version() {
 	return $errors;
 }
 
-function msdbfeed_check_admin_notices()
+function so_msdbfeed_check_admin_notices()
 {
-	$errors = msdbfeed_min_wp_version();
+	$errors = so_msdbfeed_min_wp_version();
 
 	if ( empty ( $errors ) )
 		return;
@@ -81,6 +81,184 @@ function msdbfeed_check_admin_notices()
 	);
 	deactivate_plugins( plugin_basename( __FILE__ ) );
 }
+
+/**
+ * Rewrite of the plugin
+ *
+ * @since 2014.01.02
+ */
+class SO_MSDBFEED_Load {
+	
+	function __construct() {
+
+		global $so_msdbfeed;
+
+		/* Set up an empty class for the global $so_dbfw object. */
+		$so_msdbfeed = new stdClass;
+
+		/* Set the init. */
+		add_action( 'admin_init', array( &$this, 'init' ), 1 );
+
+		/* Set the constants needed by the plugin. */
+		add_action( 'plugins_loaded', array( &$this, 'constants' ), 2 );
+
+		/* Internationalize the text strings used. */
+		add_action( 'plugins_loaded', array( &$this, 'i18n' ), 3 );
+
+		/* Load the functions files. */
+		add_action( 'plugins_loaded', array( &$this, 'includes' ), 4 );
+
+		/* Load the admin files. */
+		add_action( 'plugins_loaded', array( &$this, 'admin' ), 5 );
+
+	}
+	
+	/**
+	 * Init plugin options to white list our options
+	 *
+	 * @since 2014.01.02
+	 */
+	function init() {
+		
+		register_setting( 'so_msdbfeed_plugin_options', 'so_msdbfeed_options', 'so_msdbfeed_validate_options' );
+		
+	}
+
+
+	/**
+	 * Defines constants used by the plugin.
+	 *
+	 * @since 2014.01.02
+	 */
+	function constants() {
+
+		/* Set the version number of the plugin. */
+		define( 'SO_MSDBFEED_VERSION', '2013.12.28' );
+
+		/* Set constant path to the plugin directory. */
+		define( 'SO_MSDBFEED_DIR', trailingslashit( plugin_dir_path( __FILE__ ) ) );
+
+		/* Set constant path to the plugin URL. */
+		define( 'SO_MSDBFEED_URI', trailingslashit( plugin_dir_url( __FILE__ ) ) );
+
+		/* Set the constant path to the inc directory. */
+		define( 'SO_MSDBFEED_INCLUDES', SO_MSDBFEED_DIR . trailingslashit( 'inc' ) );
+
+		/* Set the constant path to the admin directory. */
+		define( 'SO_MSDBFEED_ADMIN', SO_MSDBFEED_DIR . trailingslashit( 'admin' ) );
+
+	}
+
+	/**
+	 * Loads the translation file.
+	 *
+	 * @since 2014.01.02
+	 */
+	function i18n() {
+
+		/* Load the translation of the plugin. */
+		load_plugin_textdomain( 'multisite-dashboard-feed-widget', false, basename( dirname( __FILE__ ) ) . '/languages/' );
+	}
+
+	/**
+	 * Loads the initial files needed by the plugin.
+	 *
+	 * @since 2014.01.02
+	 */
+	function includes() {
+
+		/* Load the plugin functions file. */
+		require_once( SO_MSDBFEED_INCLUDES . 'functions.php' );
+	}
+
+	/**
+	 * Loads the admin functions and files.
+	 *
+	 * @since 2014.01.02
+	 */
+	function admin() {
+
+		/* Only load files if in the WordPress admin. */
+		if ( is_admin() ) {
+
+			/* Load the main admin file. */
+			require_once( SO_MSDBFEED_ADMIN . 'settings.php' );
+
+		}
+	}
+
+}
+
+$so_msdbfeed_load = new SO_MSDBFEED_Load();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * Set-up Action and Filter Hooks

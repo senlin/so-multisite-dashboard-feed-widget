@@ -8,6 +8,7 @@ Author: Piet Bos
 Author URI: http://senlinonline.com
 Text Domain: multisite-dashboard-feed-widget
 Domain Path: /languages
+Network: true
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
@@ -62,8 +63,8 @@ function so_msdbfeed_min_wp_version() {
 	return $errors;
 }
 
-function so_msdbfeed_check_admin_notices()
-{
+function so_msdbfeed_check_admin_notices() {
+	
 	$errors = so_msdbfeed_min_wp_version();
 
 	if ( empty ( $errors ) )
@@ -93,7 +94,7 @@ class SO_MSDBFEED_Load {
 
 		global $so_msdbfeed;
 
-		/* Set up an empty class for the global $so_dbfw object. */
+		/* Set up an empty class for the global $so_msdbfeed object. */
 		$so_msdbfeed = new stdClass;
 
 		/* Set the init. */
@@ -133,7 +134,7 @@ class SO_MSDBFEED_Load {
 	function constants() {
 
 		/* Set the version number of the plugin. */
-		define( 'SO_MSDBFEED_VERSION', '2013.12.28' );
+		define( 'SO_MSDBFEED_VERSION', '2014.01.02' );
 
 		/* Set constant path to the plugin directory. */
 		define( 'SO_MSDBFEED_DIR', trailingslashit( plugin_dir_path( __FILE__ ) ) );
@@ -191,383 +192,117 @@ class SO_MSDBFEED_Load {
 
 $so_msdbfeed_load = new SO_MSDBFEED_Load();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
- * Set-up Action and Filter Hooks
- * 
- * @since 1.4.0
+ * Register activation/deactivation hooks
+ * @since 2014.01.02
  */
-register_activation_hook( __FILE__, 'msdbfeed_add_defaults' );
+register_activation_hook( __FILE__, 'so_msdbfeed_add_defaults' ); 
+register_deactivation_hook( __FILE__, 'so_msdbfeed_delete_plugin_options' );
 
-register_uninstall_hook( __FILE__, 'msdbfeed_delete_plugin_options' );
+add_action( 'admin_menu', 'so_msdbfeed_add_options_page' );
 
-add_action( 'admin_init', 'msdbfeed_init' );
-
-add_action( 'plugins_loaded', 'msdbfeed_i18n' );
-
-add_action( 'admin_menu', 'msdbfeed_add_options_page' );
-
-add_filter( 'plugin_action_links', 'msdbfeed_plugin_action_links', 10, 2 );
-
-/**
- * Delete options table entries ONLY when plugin deactivated AND deleted
- * 
- * @since 1.4.0
- */
-function msdbfeed_delete_plugin_options() {
-	
-	delete_option( 'msdbfeed_options' );
-
+function so_msdbfeed_add_options_page() {
+	// Add the new admin menu and page and save the returned hook suffix
+	$hook = add_options_page( 'SO Multisite Dashboard Feed Widget Settings', 'SO Multisite Dashboard Feed Widget', 'manage_options', __FILE__, 'so_msdbfeed_render_form' );
+	// Use the hook suffix to compose the hook and register an action executed when plugin's options page is loaded
+	add_action( 'admin_print_styles-' . $hook , 'so_msdbfeed_load_settings_style' );
 }
+
 
 /**
  * Define default option settings
- * 
- * @since 1.4.0
+ * @since 2014.01.02
  */
-function msdbfeed_add_defaults() {
+function so_msdbfeed_add_defaults() {
 	
-	$tmp = get_option( 'msdbfeed_options' );
+	$tmp = get_option( 'so_msdbfeed_options' );
 	
-	if ( ( ! is_array( $tmp ) ) ) {
+	if ( ( $tmp['chk_default_options_db'] == '1' ) || ( ! is_array( $tmp ) ) ) {
+		
+		delete_option( 'so_msdbfeed_options' ); // so we don't have to reset all the 'off' checkboxes too! (don't think this is needed but leave for now)
 		
 		$arr = array(
 			'widget_title' => __( 'Recent Updates', 'multisite-dashboard-feed-widget' ),
+			'feed_url' => 'http://wpti.ps/feed/',
 			'drp_select_box' => '3',
+			'widget_bkgr' => 'FF9',
+			'chk_default_options_db' => ''
 		);
 		
-		update_option( 'msdbfeed_options', $arr );
+		update_option( 'so_msdbfeed_options', $arr );
 	}
 }
 
 /**
- * Init plugin options to white list our options
- * 
- * @since 1.4.0
+ * Delete options table entries ONLY when plugin deactivated AND deleted 
+ * @since 2014.01.02
  */
-function msdbfeed_init() {
+function so_msdbfeed_delete_plugin_options() {
 	
-	register_setting( 'msdbfeed_plugin_options', 'msdbfeed_options', 'msdbfeed_validate_options' );
-	
-}
-
-/**
- * Loads the translation files.
- *
- * @since 1.0
- */
-function msdbfeed_i18n() {
-
-	/* Load the translation of the plugin. */
-	load_plugin_textdomain( 'multisite-dashboard-feed-widget', false, basename( dirname( __FILE__ ) ) . '/languages/' );
-}
-
-
-/**
- * Add menu page
- * 
- * @since 1.4.0
- */
-function msdbfeed_add_options_page() {
-	
-	add_options_page( 'SO Multisite Dashboard Feed Widget Settings', 'SO Multisite Dashboard Feed Widget Settings', 'manage_options', __FILE__, 'msdbfeed_render_form' );
+	delete_option( 'so_msdbfeed_options' );
 
 }
 
 /**
- * Render the Plugin options form
- * 
- * @since 1.4.0
+ * Register and enqueue the settings stylesheet
+ * @since 2014.01.02
  */
-function msdbfeed_render_form() { ?>
+function so_msdbfeed_load_settings_style() {
 
-	<div class="wrap">
-		
-		<!-- Display Plugin Icon, Header, and Description -->
-		<div class="icon32" id="icon-options-general"></div>
-		
-		<h2><?php _e( 'SO Multisite Dashboard Feed Widget Settings', 'multisite-dashboard-feed-widget' ); ?></h2>
-		
-		<p><?php _e( 'Below you can adjust the output of the SO Multisite Dashboard Feed Widget Settings. You can change the title of the widget and the amount of feed items to show.', 'multisite-dashboard-feed-widget' ); ?></p>
+	wp_register_style( 'custom_so_msdbfeed_settings_css', SO_MSDBFEED_URI . 'css/settings.css', false, SO_MSDBFEED_VERSION );
 
-		<!-- Beginning of the Plugin Options Form -->
-		<form method="post" action="options.php">
-			
-			<?php settings_fields( 'msdbfeed_plugin_options' ); ?>
-			
-			<?php $options = get_option( 'msdbfeed_options' ); ?>
+	wp_enqueue_style( 'custom_so_msdbfeed_settings_css' );
 
-			<!-- Table Structure Containing Form Controls -->
-			<!-- Each Plugin Option Defined on a New Table Row -->
-			
-			<table class="form-table">
+}
 
-				<!-- Textbox Control -->
-				<tr>
-					<th scope="row"><?php _e( 'Widget Title', 'multisite-dashboard-feed-widget' ); ?></th>
-					<td>
-						<input type="text" size="57" name="msdbfeed_options[widget_title]" value="<?php echo $options['widget_title']; ?>" /><br />
-						<span style="color: #666; margin-left: 2px;">
-							<?php _e( 'Change the title of the SO Multisite Dashboard Feed Widget into something of your liking', 'multisite-dashboard-feed-widget' ); ?>
-						</span>
-					</td>
-				</tr>
+/**
+ * Set-up Action and Filter Hooks
+ * @since 2014.01.02
+ */
+add_filter( 'plugin_action_links', 'so_msdbfeed_plugin_action_links', 10, 2 );
 
-				<!-- Select Drop-Down Control -->
-				<tr>
-					<th scope="row"><?php _e( 'How many Feed Items to show in the SO Multisite Dashboard Feed Widget', 'multisite-dashboard-feed-widget' ); ?></th>
-					<td>
-						<select name='msdbfeed_options[drp_select_box]'>
-							<option value='1' <?php selected( '1', $options['drp_select_box'] ); ?>>1</option>
-							<option value='2' <?php selected( '2', $options['drp_select_box'] ); ?>>2</option>
-							<option value='3' <?php selected( '3', $options['drp_select_box'] ); ?>>3</option>
-							<option value='4' <?php selected( '4', $options['drp_select_box'] ); ?>>4</option>
-							<option value='5' <?php selected( '5', $options['drp_select_box'] ); ?>>5</option>
-							<option value='6' <?php selected( '6', $options['drp_select_box'] ); ?>>6</option>
-							<option value='7' <?php selected( '7', $options['drp_select_box'] ); ?>>7</option>
-							<option value='8' <?php selected( '8', $options['drp_select_box'] ); ?>>8</option>
-							<option value='9' <?php selected( '9', $options['drp_select_box'] ); ?>>9</option>
-							<option value='10' <?php selected( '10', $options['drp_select_box'] ); ?>>10</option>
-						</select>
-						<span style="color: #666; margin-left: 2px;">
-							<?php _e( 'How many feed items to show in the widget?', 'multisite-dashboard-feed-widget' ); ?>
-						</span>
-					</td>
-				</tr>
+add_action( 'wp_dashboard_setup', 'so_msdbfeed_setup_function' ); // Register the new dashboard widget into the 'wp_dashboard_setup' action
 
-				<tr>
-					<td colspan="2">
-						<div style="margin-top: 10px;"></div>
-					</td>
-				</tr>
-			
-			</table>
-			
-			<p class="submit">
-				<input type="submit" class="button-primary" value="<?php _e( 'Save Settings', 'multisite-dashboard-feed-widget' ) ?>" />
-			</p>
-		
-		</form>
+add_action( 'admin_enqueue_scripts', 'so_msdbfeed_load_custom_admin_style' );
 
-		<p style="font-style: italic; font-weight: bold; color: #26779A;">
-			
-			<?php
-			/* Translators: 1 is link to WP Repo */
-			printf( __( 'If you have found this plugin at all useful, please give it a favourable rating in the <a href="%s" title="Rate this plugin!">WordPress Plugin Repository</a>.', 'multisite-dashboard-feed-widget' ), 
-				esc_url( 'http://wordpress.org/plugins/multisite-dashboard-feed-widget/' )
-			);
-			?>
-			
-		</p>
-		
-		<div class="postbox" style="display: block; float: left; width: 500px; margin: 30px 10px 10px 0;">
-			
-			<h3 class="hndle" style="padding: 5px;">
-				<span><?php _e( 'About the Author', 'multisite-dashboard-feed-widget' ); ?></span>
-			</h3>
-			
-			<div class="inside">
-				<img src="http://www.gravatar.com/avatar/<?php echo md5( 'info@senlinonline.com' ); ?>" style="float: left; margin-right: 10px; padding: 3px; border: 1px solid #DFDFDF;"/>
-				<p style="height: 60px; padding-top: 20px">
-					<?php printf( __( 'Hi, my name is Piet Bos, I hope you like this plugin! Please check out any of my other plugins on <a href="%s" title="SO WP Plugins">SO WP Plugins</a>. You can find out more information about me via the following links:', 'multisite-dashboard-feed-widget' ),
-					esc_url( 'http://so-wp.github.io/' )
-					); ?>
-				</p>
-				
-				<ul style="clear: both; margin-top: 20px;">
-					<li><a href="http://senlinonline.com/" target="_blank" title="Senlin Online"><?php _e('Senlin Online', 'multisite-dashboard-feed-widget'); ?></a></li>
-					<li><a href="http://wpti.ps/" target="_blank" title="WP TIPS"><?php _e('WP Tips', 'multisite-dashboard-feed-widget'); ?></a></li>
-					<li><a href="https://plus.google.com/+PietBos" target="_blank" title="Piet on Google+"><?php _e( 'Google+', 'multisite-dashboard-feed-widget' ); ?></a></li>
-					<li><a href="http://cn.linkedin.com/in/pietbos" target="_blank" title="LinkedIn profile"><?php _e( 'LinkedIn', 'multisite-dashboard-feed-widget' ); ?></a></li>
-					<li><a href="http://twitter.com/SenlinOnline" target="_blank" title="Twitter"><?php _e( 'Twitter: @piethfbos', 'multisite-dashboard-feed-widget' ); ?></a></li>
-					<li><a href="http://github.com/senlin" title="on Github"><?php _e( 'Github', 'multisite-dashboard-feed-widget' ); ?></a></li>
-					<li><a href="http://profiles.wordpress.org/senlin/" title="on WordPress.org"><?php _e( 'WordPress.org Profile', 'multisite-dashboard-feed-widget' ); ?></a></li>
-				</ul>
-			
-			</div> <!-- end .inside -->
-		
-		</div> <!-- end .postbox -->
-
-	</div> <!-- end .wrap -->
-
-<?php }
 
 /**
  * Sanitize and validate input. Accepts an array, return a sanitized array.
- * 
- * @since 1.4.0
+ * @since 2014.01.02
  */
-function msdbfeed_validate_options($input) {
+function so_msdbfeed_validate_options($input) {
 	// strip html from textboxes
 	$input['widget_title'] =  wp_filter_nohtml_kses( $input['widget_title'] ); // Sanitize input (strip html tags, and escape characters)
+	$input['feed_url'] =  wp_filter_nohtml_kses( $input['feed_url'] ); // Sanitize input (strip html tags, and escape characters)
+	$input['widget_bkgr'] =  wp_filter_nohtml_kses( $input['widget_bkgr'] ); // Sanitize input (strip html tags, and escape characters)
 	return $input;
 }
 
 /**
  * Display a Settings link on the main Plugins page
- * 
- * @since 1.4.0
  */
-function msdbfeed_plugin_action_links( $links, $file ) {
+function so_msdbfeed_plugin_action_links( $links, $file ) {
 
 	if ( $file == plugin_basename( __FILE__ ) ) {
-		$msdbfeed_links = '<a href="' . get_admin_url() . 'options-general.php?page=multisite-dashboard-feed-widget/msdbfeed.php">' . __( 'Settings', 'multisite-dashboard-feed-widget' ) . '</a>';
+		$so_msdbfeed_links = '<a href="' . get_network_admin_url( 'settings.php?page=multisite-dashboard-feed-widget/msdbfeed.php' ) . '">' . __( 'Settings', 'multisite-dashboard-feed-widget' ) . '</a>';
 		// make the 'Settings' link appear first
-		array_unshift( $links, $msdbfeed_links );
+		array_unshift( $links, $so_msdbfeed_links );
 	}
 
 	return $links;
 }
 
-/**
- * Add Feed Dashboard Widget, finally the actual code that grabs the feed and loops through it to output it
- * 
- * @since 1.4.0
- */
-function msdbfeed_setup_function() {
-	$options = get_option( 'msdbfeed_options' );
-	$widgettitle = $options['widget_title'];
-	add_meta_box( 'msdbfeed_widget',  $widgettitle, 'msdbfeed_widget_function', 'dashboard', 'normal', 'high' );
-}
-
-function msdbfeed_widget_function() {
-	$options = get_option( 'msdbfeed_options' );
-	$feedurl = network_site_url('/feed/');
-	$select = $options['drp_select_box'];
-
-	/**
-	 * Fetch Network Feed
-	 * 
-	 * @since 1.0
-	 */
-	$rss = fetch_feed($feedurl);
-	if (!is_wp_error($rss)) { // Checks that the object is created correctly
-	    // Figure out how many total items there are, but limit it to 3.
-	    $maxitems = $select;
-	    // Build an array of all the items, starting with element 0 (first element).
-	    $rss_items = $rss->get_items(0, $maxitems);
-	}
-	if (!empty($maxitems)) {
-	?>
-		<div class="rss-widget">
-	    	
-	    	<ul>
-	
-	<?php
-	    // Loop through each feed item and display each item as a hyperlink.
-	    foreach ($rss_items as $item) {
-	
-	?>
-	
-				<li><a class="rsswidget" href='<?php echo $item->get_permalink(); ?>'><?php echo $item->get_title(); ?></a> <span class="rss-date"><?php echo $item->get_date('j F Y'); ?></span></li>
-	
-	<?php } ?>
-			
-			</ul>
-		
-		</div> <!-- end .rss-widget -->
-	
-	<?php
-	}
-
-	// This makes sure that the positioning is also correct for right-to-left languages
-	$x = is_rtl() ? 'left' : 'right'; 
-	echo '<style type="text/css">#msdbfeed_widget { float: $x; }</style>';
-}
-
 
 /**
- * Register the new dashboard widget into the 'wp_dashboard_setup' action
- * 
- * @since 1.0
+ * Register and enqueue the admin stylesheet
+ * @since 2014.01.02
  */
-add_action( 'wp_dashboard_setup', 'msdbfeed_setup_function' );
-
-/**
- * Adds stylesheet
- * 
- * @since 1.0
- */
-add_action( 'admin_print_styles', 'msdbfeed_load_custom_admin_css' );
-
-
-/**
- * And now enqueue the stylesheet
- * 
- * @since 1.0
- */
-function msdbfeed_load_custom_admin_css() {
-	
-	wp_enqueue_style( 'msdbfeed_custom_admin_css', plugins_url( '/style.css', __FILE__ ) );
-
+function so_msdbfeed_load_custom_admin_style( $hook ) {
+    if( 'index.php' != $hook )
+    	return;
+	wp_register_style( 'custom_so_msdbfeed_admin_css', SO_MSDBFEED_URI . 'css/style.css', false, SO_MSDBFEED_VERSION );
+	wp_enqueue_style( 'custom_so_msdbfeed_admin_css' );
 }
 
 /** The End **/
+?>

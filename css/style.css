@@ -1,0 +1,6 @@
+/**
+ * CSS for the custom Multisite Dashboard Feed Widget
+ * 
+ * @since 1.0
+ */
+#msdbfeed_widget.postbox .handlediv { display: none; }

@@ -221,9 +221,11 @@ function so_msdbfeed_add_defaults() {
 		
 		delete_option( 'so_msdbfeed_options' ); // so we don't have to reset all the 'off' checkboxes too! (don't think this is needed but leave for now)
 		
+		$feed_url = network_site_url( '/feed/' );
+		
 		$arr = array(
 			'widget_title' => __( 'Recent Updates', 'multisite-dashboard-feed-widget' ),
-			'feed_url' => 'http://wpti.ps/feed/',
+			'feed_url' => echo $feed_url,
 			'drp_select_box' => '3',
 			'widget_bkgr' => 'FF9',
 			'chk_default_options_db' => ''

@@ -3,7 +3,7 @@
 Plugin Name: SO Multisite Dashboard Feed Widget
 Plugin URI: https://github.com/so-wp/so-multisite-dashboard-feed-widget
 Description: This dashboard widget shows the latest Posts from the main site of a multisite install in the top of the Dashboard of the sites hanging under the multisite install.
-Version: 1.4.1
+Version: 2014.01.02
 Author: Piet Bos
 Author URI: http://senlinonline.com
 Text Domain: multisite-dashboard-feed-widget
@@ -51,7 +51,7 @@ if ( ! empty ( $GLOBALS['pagenow'] ) && 'plugins.php' === $GLOBALS['pagenow'] )
 function msdbfeed_min_wp_version() {
 	global $wp_version;
 	$require_wp = '3.6';
-	$update_url = get_admin_url( null, 'update-core.php' );
+	$update_url = network_admin_url( 'update-core.php' );
 
 	$errors = array();
 
@@ -267,7 +267,7 @@ function msdbfeed_render_form() { ?>
 				<ul style="clear: both; margin-top: 20px;">
 					<li><a href="http://senlinonline.com/" target="_blank" title="Senlin Online"><?php _e('Senlin Online', 'multisite-dashboard-feed-widget'); ?></a></li>
 					<li><a href="http://wpti.ps/" target="_blank" title="WP TIPS"><?php _e('WP Tips', 'multisite-dashboard-feed-widget'); ?></a></li>
-					<li><a href="https://plus.google.com/108543145122756748887" target="_blank" title="Piet on Google+"><?php _e( 'Google+', 'multisite-dashboard-feed-widget' ); ?></a></li>
+					<li><a href="https://plus.google.com/+PietBos" target="_blank" title="Piet on Google+"><?php _e( 'Google+', 'multisite-dashboard-feed-widget' ); ?></a></li>
 					<li><a href="http://cn.linkedin.com/in/pietbos" target="_blank" title="LinkedIn profile"><?php _e( 'LinkedIn', 'multisite-dashboard-feed-widget' ); ?></a></li>
 					<li><a href="http://twitter.com/SenlinOnline" target="_blank" title="Twitter"><?php _e( 'Twitter: @piethfbos', 'multisite-dashboard-feed-widget' ); ?></a></li>
 					<li><a href="http://github.com/senlin" title="on Github"><?php _e( 'Github', 'multisite-dashboard-feed-widget' ); ?></a></li>

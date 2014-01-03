@@ -15,7 +15,7 @@ function so_msdbfeed_render_form() { ?>
 		<div id="msdbfeed-settings">
 	
 			<!-- Beginning of the Plugin Options Form -->
-			<form method="post" action="options.php">
+			<form method="post" action="#">
 			
 				<?php settings_fields( 'so_msdbfeed_plugin_options' ); ?>
 		
@@ -25,7 +25,7 @@ function so_msdbfeed_render_form() { ?>
 
 					<label for="msdbfeed-title"><?php _e( 'Widget Title', 'dashboard-feed-widget' ); ?></label>
 					
-					<input name="so_msdbfeed_options[widget_title]" type="text" id="msdbfeed-title" value="<?php echo $options['widget_title']; ?>" />
+					<input name="so_msdbfeed_options[widget_title]" type="text" id="msdbfeed-title" class="regular-text" value="<?php echo $options['widget_title']; ?>" />
 							
 					<span class="hint">
 						<?php _e( 'Change the title of the SO Multisite Dashboard Feed Widget into something of your liking', 'multisite-dashboard-feed-widget' ); ?>

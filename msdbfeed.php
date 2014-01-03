@@ -121,6 +121,9 @@ class SO_MSDBFEED_Load {
 	 */
 	function init() {
 		
+		if ( ! is_multisite() )
+			exit( __( 'The Multisite Dashboard Feed Widget plugin is only compatible with WordPress Multisite. For this site you need to install the <a href="http://so-wp.com/?p=15" title="SO Dashboard Feed Widget plugin">SO Dashboard Feed Widget plugin</a> instead.', 'multisite-dashboard-feed-widget' )  );
+		
 		register_setting( 'so_msdbfeed_plugin_options', 'so_msdbfeed_options', 'so_msdbfeed_validate_options' );
 		
 	}
@@ -179,8 +182,8 @@ class SO_MSDBFEED_Load {
 	 */
 	function admin() {
 
-		/* Only load files if in the WordPress admin. */
-		if ( is_admin() ) {
+		/* Only load files if in the WordPress Network Admin. */
+		if ( is_super_admin() ) {
 
 			/* Load the main admin file. */
 			require_once( SO_MSDBFEED_ADMIN . 'settings.php' );
@@ -199,15 +202,17 @@ $so_msdbfeed_load = new SO_MSDBFEED_Load();
 register_activation_hook( __FILE__, 'so_msdbfeed_add_defaults' ); 
 register_deactivation_hook( __FILE__, 'so_msdbfeed_delete_plugin_options' );
 
-add_action( 'admin_menu', 'so_msdbfeed_add_options_page' );
+add_action( 'network_admin_menu', 'so_msdbfeed_network_admin_menu' );
 
-function so_msdbfeed_add_options_page() {
+function so_msdbfeed_network_admin_menu() {
 	// Add the new admin menu and page and save the returned hook suffix
-	$hook = add_options_page( 'SO Multisite Dashboard Feed Widget Settings', 'SO Multisite Dashboard Feed Widget', 'manage_options', __FILE__, 'so_msdbfeed_render_form' );
+	$hook = add_submenu_page( 'settings.php', __( 'SO Multisite Dashboard Feed Widget Settings', 'multisite-dashboard-feed-widget' ), __( 'SO Multisite Dashboard Feed Widget', 'multisite-dashboard-feed-widget' ), 'manage_options', __FILE__, 'so_msdbfeed_render_form' );
 	// Use the hook suffix to compose the hook and register an action executed when plugin's options page is loaded
 	add_action( 'admin_print_styles-' . $hook , 'so_msdbfeed_load_settings_style' );
 }
 
+//function so_msdbfeed_add_options_page() {
+//	$hook = add_submenu_page( 'settings.php', __('Custom Dashboard Widget', 'custom_content_dashboard'),  __('Dashboard Widget', 'custom_content_dashboard'), 'manage_site_options', 'custom_content_dashboard', 'custom_content_dashboard_settings => equals my so_msdbfeed_render_form	     	 	   		  		
 
 /**
  * Define default option settings
@@ -221,11 +226,9 @@ function so_msdbfeed_add_defaults() {
 		
 		delete_option( 'so_msdbfeed_options' ); // so we don't have to reset all the 'off' checkboxes too! (don't think this is needed but leave for now)
 		
-		$feed_url = network_site_url( '/feed/' );
-		
 		$arr = array(
 			'widget_title' => __( 'Recent Updates', 'multisite-dashboard-feed-widget' ),
-			'feed_url' => echo $feed_url,
+			'feed_url' => network_site_url( '/feed/' ),
 			'drp_select_box' => '3',
 			'widget_bkgr' => 'FF9',
 			'chk_default_options_db' => ''
@@ -264,6 +267,8 @@ function so_msdbfeed_load_settings_style() {
 add_filter( 'plugin_action_links', 'so_msdbfeed_plugin_action_links', 10, 2 );
 
 add_action( 'wp_dashboard_setup', 'so_msdbfeed_setup_function' ); // Register the new dashboard widget into the 'wp_dashboard_setup' action
+
+add_action( 'wp_user_dashboard_setup', 'so_msdbfeed_setup_function' ); // Register the new dashboard widget into the 'wp_user_dashboard_setup' action
 
 add_action( 'admin_enqueue_scripts', 'so_msdbfeed_load_custom_admin_style' );
 

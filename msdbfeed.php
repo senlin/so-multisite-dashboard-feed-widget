@@ -206,7 +206,7 @@ add_action( 'network_admin_menu', 'so_msdbfeed_network_admin_menu' );
 
 function so_msdbfeed_network_admin_menu() {
 	// Add the new admin menu and page and save the returned hook suffix
-	$hook = add_submenu_page( 'settings.php', __( 'SO Multisite Dashboard Feed Widget Settings', 'multisite-dashboard-feed-widget' ), __( 'SO Multisite Dashboard Feed Widget', 'multisite-dashboard-feed-widget' ), 'manage_options', __FILE__, 'so_msdbfeed_render_form' );
+	$hook = add_submenu_page( 'settings.php', __( 'SO Multisite Dashboard Feed Widget Settings', 'multisite-dashboard-feed-widget' ), __( 'SO Multisite Dashboard Feed Widget', 'multisite-dashboard-feed-widget' ), 'manage_site_options', __FILE__, 'so_msdbfeed_render_form' );
 	// Use the hook suffix to compose the hook and register an action executed when plugin's options page is loaded
 	add_action( 'admin_print_styles-' . $hook , 'so_msdbfeed_load_settings_style' );
 }
@@ -291,7 +291,7 @@ function so_msdbfeed_validate_options($input) {
 function so_msdbfeed_plugin_action_links( $links, $file ) {
 
 	if ( $file == plugin_basename( __FILE__ ) ) {
-		$so_msdbfeed_links = '<a href="' . get_network_admin_url( 'settings.php?page=multisite-dashboard-feed-widget/msdbfeed.php' ) . '">' . __( 'Settings', 'multisite-dashboard-feed-widget' ) . '</a>';
+		$so_msdbfeed_links = '<a href="' . get_network_admin_url( 'settings.php?page=so-multisite-dashboard-feed-widget/msdbfeed.php' ) . '">' . __( 'Settings', 'multisite-dashboard-feed-widget' ) . '</a>';
 		// make the 'Settings' link appear first
 		array_unshift( $links, $so_msdbfeed_links );
 	}

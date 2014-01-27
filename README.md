@@ -23,9 +23,7 @@ I have decided to only support this plugin through <a href="https://github.com/s
 
 ## Changing the defaults
 
-If you would like to change the RSS Feed address, open `msrss.php` and delete line 2. Then change line 3 into:
-
-* `$rss = fetch_feed('http://yourdomain.com/feed/');`
+* If you would like to change the RSS Feed address, open `msrss.php` and delete line 2. Then change line 3 into: `$rss = fetch_feed('http://yourdomain.com/feed/');`
 * If you would like to change the number of RSS items, open `msrss.php` and edit the number in line 6.
 * If you would like to change the title from "Recent Updates" to something else, open `msdbfeed.php` and change the name in line 44.
 

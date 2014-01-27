@@ -72,7 +72,7 @@ function msdbfeed_check_admin_notices()
 	// this plugin's name
 	$name = get_file_data( __FILE__, array ( 'Plugin Name' ), 'plugin' );
 
-	printf( __( '<div class="error"><p>%1$s</p><p><i>%2$s</i> has been deactivated.</p></div>', 'msdbfeed' ),
+	printf( __( '<div class="error"><p>%1$s</p><p><i>%2$s</i> has been deactivated.</p></div>', 'multisite-dashboard-feed-widget' ),
 		join( '</p><p>', $errors ),
 		$name[0]
 	);
@@ -111,7 +111,7 @@ function msdbfeed_i18n() {
  */
 function msdbfeed_setup_function() {
 	
-	add_meta_box( 'msdbfeed_widget', __( 'Recent Updates', 'msdbfeed' ), 'msdbfeed_widget_function', 'dashboard', 'normal', 'high' );
+	add_meta_box( 'msdbfeed_widget', __( 'Recent Updates', 'multisite-dashboard-feed-widget' ), 'msdbfeed_widget_function', 'dashboard', 'normal', 'high' );
 }
 
 function msdbfeed_widget_function() {

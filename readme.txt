@@ -36,7 +36,7 @@ If you would like to change the RSS Feed address, open `msrss.php` and delete li
 
 If you would like to change the number of RSS items, open `msrss.php` and edit the number in line 6.
 
-If you would like to change the title from "Recent Updates" to something else, open `msdbfeed.php` and change the name in line 44.
+If you would like to change the title from "Recent Updates" to something else, open `msdbfeed.php` and change the name in line 114.
 
 After editing the file(s), you can follow step 1-3 above to install the plugin.
 

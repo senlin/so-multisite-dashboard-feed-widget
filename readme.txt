@@ -3,8 +3,8 @@ Contributors: senlin
 Donate link: http://so-wp.com/donations
 Tags: multisite, dashboard, feed, widget, admin, rss
 Requires at least: 3.1.2
-Tested up to: 3.8.1
-Stable tag: 2014.01.27
+Tested up to: 4.0-beta2
+Stable tag: 2014.07.31
 License: GPLv2 or later
 
 Shows the latest Posts from the main site of a multisite install in the top of the Dashboard of the sites hanging under the multisite install.
@@ -51,6 +51,11 @@ You could, but you'd probably be better off by installing the [SO Dashboard Feed
 1. Siteadmin Dashboard after installation.
 
 == Changelog ==
+
+= 2014.07.31 =
+
+* Verify compatibility with 4.0
+* Bump minimum required version up to WP 3.8
 
 = 2014.01.27 =
 

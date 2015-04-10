@@ -3,13 +3,13 @@
 Plugin Name: Multisite Dashboard Feed Widget
 Plugin URI: http://so-wp.com/?p=14
 Description: This dashboard widget shows the latest Posts from the main site of a multisite install in the top of the Dashboard of the sites hanging under the multisite install.
-Version: 2014.07.31
+Version: 2015.04.09
 Author: Piet Bos
 Author URI: http://senlinonline.com
 License: GPLv2 or later
 */
 
-/*  Copyright 2014  Piet Bos  (email : piethfbos@gmail.com)
+/*  Copyright 2012-2015  Piet Bos  (email : piet@so-wp.com)
 
 This program is free software; you can redistribute it and/or modify
 it under the terms of the GNU General Public License, version 2, as 
@@ -47,7 +47,7 @@ if ( ! empty ( $GLOBALS['pagenow'] ) && 'plugins.php' === $GLOBALS['pagenow'] )
 
 function msdbfeed_min_wp_version() {
 	global $wp_version;
-	$require_wp = '3.8';
+	$require_wp = '4.0';
 	$update_url = get_admin_url( null, 'update-core.php' );
 
 	$errors = array();

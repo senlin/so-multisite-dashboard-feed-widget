@@ -3,8 +3,8 @@ Contributors: senlin
 Donate link: http://so-wp.com/donations
 Tags: multisite, dashboard, feed, widget, admin, rss
 Requires at least: 3.1.2
-Tested up to: 4.0-beta2
-Stable tag: 2014.07.31
+Tested up to: 4.2
+Stable tag: 2015.04.09
 License: GPLv2 or later
 
 Shows the latest Posts from the main site of a multisite install in the top of the Dashboard of the sites hanging under the multisite install.
@@ -14,11 +14,9 @@ Shows the latest Posts from the main site of a multisite install in the top of t
 With the arrival of WordPress version 3.1.2 all of a sudden the Dashboard Feed on Multisite had disappeared. A few others noticed this too, but nobody had any solutions. That is the reason why I made this plugin. 
 By default it shows the titles (and links to) the 3 latest Posts of the Main Site (blog_id=1) in a box with a yellow background which shows as the first available widget in the dashboard of all sites hanging under the Multisite.
 
-As this is my first plugin, I have not yet included an options page. Actually there are not that many variables anyway. But making options available is on the TO-DO list.
-
-The default settings are:<br />
+The default settings are:
 - the plugin automatically takes the RSS Feed of the main site in the WordPress Multisite install (`blog_id=1`)
-- the default number of RSS items is 3<br />
+- the default number of RSS items is 3
 - the standard title of the widget box is "Recent Updates"
 
 The plugin comes localized for use on sites other than the English language and/or on bi/multilingual websites. In the languages folder you will find the .po, .pot and .mo files. For now there is only one line, but when I get around to do the options page, that will of course become more.
@@ -51,6 +49,11 @@ You could, but you'd probably be better off by installing the [SO Dashboard Feed
 1. Siteadmin Dashboard after installation.
 
 == Changelog ==
+
+= 2015.04.09 =
+
+* changed logos
+* new banner image for WP.org Repo by [Sarah Bürvenich](https://unsplash.com/sarahburvenich)
 
 = 2014.07.31 =
 

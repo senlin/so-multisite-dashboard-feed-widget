@@ -1,9 +1,9 @@
 SO Multisite Dashboard Feed Widget
 =====================
 
-###### Last updated 2014.07.31
-###### requires at least WordPress 3.8
-###### tested up to WordPress 4.0-beta2
+###### Last updated 2015.04.09
+###### requires at least WordPress 4.0
+###### tested up to WordPress 4.2
 ###### Author: [Piet Bos](https://github.com/senlin)
 ###### [Stable Version](http://wordpress.org/plugins/multisite-dashboard-feed-widget/) (via WordPress Plugins Repository)
 ###### [Plugin homepage](http://so-wp.com/plugin/so-multisite-dashboard-feed-widget)
@@ -54,13 +54,16 @@ This plugin desperately needs an options page and for Network sites that is a bi
 
 [Github](https://github.com/senlin) 
 
-[Google+](http://plus.google.com/+PietBos) 
-
 [WordPress](http://profiles.wordpress.org/senlin/) 
 
 [Website](http://senlinonline.com)
 
 ## Changelog
+
+### 2015.04.09
+
+* changed logos
+* new banner image for WP.org Repo by [Sarah Bürvenich](https://unsplash.com/sarahburvenich)
 
 ### 2014.07.31
 

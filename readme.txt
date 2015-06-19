@@ -3,8 +3,8 @@ Contributors: senlin
 Donate link: http://so-wp.com/donations
 Tags: multisite, dashboard, feed, widget, admin, rss
 Requires at least: 3.1.2
-Tested up to: 4.2
-Stable tag: 2015.04.09
+Tested up to: 4.2.2
+Stable tag: 1.5.3
 License: GPLv2 or later
 
 Shows the latest Posts from the main site of a multisite install in the top of the Dashboard of the sites hanging under the multisite install.
@@ -42,7 +42,7 @@ After editing the file(s), you can follow step 1-3 above to install the plugin.
 
 = Can I use this plugin also on a single WordPress install? =
 
-You could, but you'd probably be better off by installing the [SO Dashboard Feed Widget](http://wordpress.org/extend/plugins/dashboard-feed-widget/) plugin that I released in August 2012. That plugin actually comes with its own Settings page too.
+You could, but you'd probably be better off by installing the [SO Dashboard Feed Widget](https://wordpress.org/plugins/dashboard-feed-widget/) plugin that I released in August 2012. That plugin actually comes with its own Settings page too.
 
 == Screenshots ==
 
@@ -50,18 +50,26 @@ You could, but you'd probably be better off by installing the [SO Dashboard Feed
 
 == Changelog ==
 
-= 2015.04.09 =
+= 1.5.3 =
 
+* date: 2015.06.19
+* revert to [semantic versioning](http://semver.org/)
+
+= 1.5.2 =
+
+* date: 2015.04.09
 * changed logos
 * new banner image for WP.org Repo by [Sarah Bürvenich](https://unsplash.com/sarahburvenich)
 
-= 2014.07.31 =
+= 1.5.1 =
 
+* date: 2014.07.31
 * Verify compatibility with 4.0
 * Bump minimum required version up to WP 3.8
 
-= 2014.01.27 =
+= 1.5.0 =
 
+* date: 2014.01.27
 * Revert entire plugin to last working version (1.3)
 * compatible up to WP 3.8.1
 
@@ -101,7 +109,7 @@ You could, but you'd probably be better off by installing the [SO Dashboard Feed
 
 == Upgrade Notice ==
 
-= 2014.01.27 =
+= 1.5.0 =
 
 * Due to several bugs and plain wrong way of coding the settings page I have for now reverted the entire plugin back to the last working version (1.3) until I find a properly working solution. Apologies for any inconvenience this may cause.
 

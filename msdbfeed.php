@@ -3,7 +3,7 @@
 Plugin Name: Multisite Dashboard Feed Widget
 Plugin URI: http://so-wp.com/?p=14
 Description: This dashboard widget shows the latest Posts from the main site of a multisite install in the top of the Dashboard of the sites hanging under the multisite install.
-Version: 2015.04.09
+Version: 1.5.3
 Author: Piet Bos
 Author URI: http://senlinonline.com
 License: GPLv2 or later

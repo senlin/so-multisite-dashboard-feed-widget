@@ -1,9 +1,9 @@
 SO Multisite Dashboard Feed Widget
 =====================
 
-###### Last updated 2015.04.09
+###### Last updated 2015.06.19
 ###### requires at least WordPress 4.0
-###### tested up to WordPress 4.2
+###### tested up to WordPress 4.2.2
 ###### Author: [Piet Bos](https://github.com/senlin)
 ###### [Stable Version](http://wordpress.org/plugins/multisite-dashboard-feed-widget/) (via WordPress Plugins Repository)
 ###### [Plugin homepage](http://so-wp.com/plugin/so-multisite-dashboard-feed-widget)
@@ -31,7 +31,7 @@ I have decided to only support this plugin through <a href="https://github.com/s
 
 ### Can I use this plugin also on a single WordPress install?
 
-No, instead please install the [SO Dashboard Feed Widget](http://wordpress.org/extend/plugins/dashboard-feed-widget/) plugin that I released in August 2012. That plugin actually comes with its own Settings page too.
+No, instead please install the [SO Dashboard Feed Widget](https://wordpress.org/plugins/dashboard-feed-widget/) plugin that I released in August 2012. That plugin actually comes with its own Settings page too.
 
 ### I have an issue with this plugin, where can I get support?
 
@@ -54,27 +54,34 @@ This plugin desperately needs an options page and for Network sites that is a bi
 
 [Github](https://github.com/senlin) 
 
-[WordPress](http://profiles.wordpress.org/senlin/) 
+[WordPress](https://profiles.wordpress.org/senlin/) 
 
 [Website](http://senlinonline.com)
 
 ## Changelog
 
-### 2015.04.09
+### 1.5.3
 
+* date: 2015.06.19
+* revert to [semantic versioning](http://semver.org/)
+
+### 1.5.2
+
+* date: 2015.04.09
 * changed logos
 * new banner image for WP.org Repo by [Sarah Bürvenich](https://unsplash.com/sarahburvenich)
 
-### 2014.07.31
+### 1.5.1
 
+* date: 2014.07.31
 * Verify compatibility with 4.0
 * Bump minimum required version up to WP 3.8
 
-### 2014.01.27
+### 1.5.0
 
+* date: 2014.01.27
 * Revert entire plugin to last working version (1.3)
 * compatible up to WP 3.8.1
-* add README.md
 
 ### 1.4.1
 

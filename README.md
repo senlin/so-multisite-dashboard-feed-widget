@@ -3,7 +3,7 @@ SO Multisite Dashboard Feed Widget
 
 ###### Last updated 2015.06.19
 ###### requires at least WordPress 4.0
-###### tested up to WordPress 4.2.2
+###### tested up to WordPress 4.3
 ###### Author: [Piet Bos](https://github.com/senlin)
 ###### [Stable Version](http://wordpress.org/plugins/multisite-dashboard-feed-widget/) (via WordPress Plugins Repository)
 ###### [Plugin homepage](http://so-wp.com/plugin/so-multisite-dashboard-feed-widget)

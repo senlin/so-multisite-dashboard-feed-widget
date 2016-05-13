@@ -1,6 +1,8 @@
 SO Multisite Dashboard Feed Widget
 =====================
 
+### May 14, 2016: No longer in active development, use at own risk
+
 ###### Last updated 2015.06.19
 ###### requires at least WordPress 4.0
 ###### tested up to WordPress 4.4
